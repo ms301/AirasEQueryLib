@@ -5,43 +5,10 @@ interface
 uses
   CloudAPI.Request,
   CloudAPI.Response,
-  CloudAPI.Client.Sync;
+  CloudAPI.Client.Sync,
+  Airas.EQuery.Types;
 
 type
-  TeqOperator = record
-    Login, Name: string;
-    class function Create(const ALogin, AName: string): TeqOperator; static;
-  end;
-
-  TeqOperatorAuth = record
-    orgid: string;
-    userid: string;
-    operid: string;
-    firstname: string;
-    lastname: string;
-    patronymic: string;
-    usertype: string;
-    sessionid: string;
-  end;
-
-  TeqParamEQueryOper = record
-    allAllClients: string;
-    allClients: string;
-    near: string;
-    next: string;
-    server_time: string;
-  end;
-
-  TeqOperCall = record
-    equery_num: string;
-    clientid: string;
-    fio: string;
-    platname: string;
-    phone: string;
-    time_start: string;
-    time_end: string;
-  end;
-
   TAirasQuery = class
   private
     FCli: TCloudApiClient;
@@ -246,14 +213,6 @@ begin
   finally
     LDocument := nil;
   end;
-end;
-
-{ TeqOperator }
-
-class function TeqOperator.Create(const ALogin, AName: string): TeqOperator;
-begin
-  Result.Login := ALogin;
-  Result.Name := AName;
 end;
 
 end.
