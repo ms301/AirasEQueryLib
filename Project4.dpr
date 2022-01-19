@@ -5,7 +5,8 @@
 
 uses
   System.SysUtils,
-  Airas.EQuery.Client in 'Airas.EQuery.Client.pas';
+  Airas.EQuery.Client in 'Airas.EQuery.Client.pas',
+  Airas.EQuery.Types;
 
 procedure test;
 var

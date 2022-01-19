@@ -68,7 +68,7 @@ begin
     begin
       lNode := LDocument.ChildNodes.FindNode('response').ChildNodes[i];
       if lNode.HasAttribute('name') and lNode.HasAttribute('login') then
-        lList.Add(TeqOperator.Create(lNode.Attributes['login'], lNode.Attributes['name']));
+        lList.Add(TeqOperator.FromXmlNode(lNode));
     end;
     Result := lList.ToArray;
   finally
@@ -107,14 +107,7 @@ begin
       lNode := LDocument.ChildNodes.FindNode('response').ChildNodes[i];
       if lNode.HasAttribute('equery_num') and lNode.HasAttribute('clientid') then
       begin
-        lCall.equery_num := lNode.Attributes['equery_num'];
-        lCall.clientid := lNode.Attributes['clientid'];
-        lCall.fio := lNode.Attributes['fio'];
-        lCall.platname := lNode.Attributes['platname'];
-        lCall.phone := lNode.Attributes['phone'];
-        lCall.time_start := lNode.Attributes['time_start'];
-        lCall.time_end := lNode.Attributes['time_end'];
-        lList.Add(lCall);
+        lList.Add(TeqOperCall.FromXmlNode(lNode));
       end;
     end;
     Result := lList.ToArray;
@@ -161,13 +154,7 @@ begin
     begin
       lNode := LDocument.ChildNodes.FindNode('response').ChildNodes[i];
       if lNode.HasAttribute('allClients') then
-      begin
-        Result.allAllClients := lNode.Attributes['allAllClients'];
-        Result.allClients := lNode.Attributes['allClients'];
-        Result.near := lNode.Attributes['near'];
-        Result.next := lNode.Attributes['next'];
-        Result.server_time := lNode.Attributes['server_time'];
-      end;
+        Result := TeqParamEQueryOper.FromXmlNode(lNode);
     end;
   finally
     LDocument := nil;
@@ -199,16 +186,7 @@ begin
     begin
       lNode := LDocument.ChildNodes.FindNode('response').ChildNodes[i];
       if lNode.HasAttribute('sessionid') then
-      begin
-        Result.orgid := lNode.Attributes['orgid'];
-        Result.userid := lNode.Attributes['userid'];
-        Result.operid := lNode.Attributes['operid'];
-        Result.firstname := lNode.Attributes['firstname'];
-        Result.lastname := lNode.Attributes['lastname'];
-        Result.patronymic := lNode.Attributes['patronymic'];
-        Result.usertype := lNode.Attributes['usertype'];
-        Result.sessionid := lNode.Attributes['sessionid'];
-      end;
+        TeqOperatorAuth.FromXmlNode(lNode);
     end;
   finally
     LDocument := nil;
