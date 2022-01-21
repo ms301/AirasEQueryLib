@@ -155,6 +155,8 @@ begin
       lNode := LDocument.ChildNodes.FindNode('response').ChildNodes[i];
       if lNode.HasAttribute('allClients') then
         Result := TeqParamEQueryOper.FromXmlNode(lNode);
+      if lNode.HasAttribute('equery_num') then
+        Result.Users := Result.Users + [TeqUserInQueue.FromXmlNode(lNode)];
     end;
   finally
     LDocument := nil;
@@ -186,7 +188,7 @@ begin
     begin
       lNode := LDocument.ChildNodes.FindNode('response').ChildNodes[i];
       if lNode.HasAttribute('sessionid') then
-        TeqOperatorAuth.FromXmlNode(lNode);
+        Result := TeqOperatorAuth.FromXmlNode(lNode);
     end;
   finally
     LDocument := nil;

@@ -26,16 +26,6 @@ type
     class function FromXmlNode(ANode: IXMLNode): TeqOperatorAuth; static;
   end;
 
-  TeqParamEQueryOper = record
-  public
-    allAllClients: string;
-    allClients: string;
-    near: string;
-    next: string;
-    server_time: string;
-    class function FromXmlNode(ANode: IXMLNode): TeqParamEQueryOper; static;
-  end;
-
   TeqUserInQueue = record
   public
     status: string;
@@ -47,6 +37,7 @@ type
     time_want: string;
     equery_num: string;
     room: string;
+    eqtype: string;
     docstateid: string;
     docstate: string;
     fio: string;
@@ -54,6 +45,17 @@ type
     platname: string;
     server_time: string;
     class function FromXmlNode(ANode: IXMLNode): TeqUserInQueue; static;
+  end;
+
+  TeqParamEQueryOper = record
+  public
+    allAllClients: string;
+    allClients: string;
+    near: string;
+    next: string;
+    server_time: string;
+    Users: TArray<TeqUserInQueue>;
+    class function FromXmlNode(ANode: IXMLNode): TeqParamEQueryOper; static;
   end;
 
   TeqOperCall = record
@@ -95,6 +97,7 @@ begin
   Result.phone := ANode.Attributes['phone'];
   Result.time_start := ANode.Attributes['time_start'];
   Result.time_end := ANode.Attributes['time_end'];
+
 end;
 
 { TeqParamEQueryOper }
@@ -120,6 +123,30 @@ begin
   Result.patronymic := ANode.Attributes['patronymic'];
   Result.usertype := ANode.Attributes['usertype'];
   Result.sessionid := ANode.Attributes['sessionid'];
+end;
+
+{ TeqUserInQueue }
+
+class function TeqUserInQueue.FromXmlNode(ANode: IXMLNode): TeqUserInQueue;
+begin
+  Result.server_time := ANode.Attributes['server_time'];
+  Result.status := ANode.Attributes['status'];
+  Result.operid := ANode.Attributes['operid'];
+  Result.opername := ANode.Attributes['opername'];
+  Result.clientid := ANode.Attributes['clientid'];
+  Result.time_start := ANode.Attributes['time_start'];
+  Result.time_end := ANode.Attributes['time_end'];
+  Result.time_want := ANode.Attributes['time_want'];
+  Result.equery_num := ANode.Attributes['equery_num'];
+  Result.room := ANode.Attributes['room'];
+  Result.eqtype := ANode.Attributes['eqtype'];
+  Result.docstateid := ANode.Attributes['docstateid'];
+  Result.docstate := ANode.Attributes['docstate'];
+  Result.fio := ANode.Attributes['fio'];
+  Result.phone := ANode.Attributes['phone'];
+  Result.platname := ANode.Attributes['platname'];
+  Result.time_want := ANode.Attributes['time_want'];
+
 end;
 
 end.
